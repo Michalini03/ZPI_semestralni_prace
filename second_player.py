@@ -22,6 +22,7 @@ button_matrix = []  # Matice tlačítek
 state_matrix = []   # Stav herního pole
 player_won = -1     # -1 = žádný vítěz
 field_size = 3      # Velikost pole
+game_online = False
 
 
 # Kontrola herní plochy
@@ -148,6 +149,7 @@ def create_field(topic_data):
     global state_matrix
     global button_matrix
     global field_size
+    global game_online
     try:
         field_size = int(topic_data)
         if field_size <= 0:
@@ -155,6 +157,8 @@ def create_field(topic_data):
         state_matrix = create_square_matrix(field_size)
         button_matrix = create_square_matrix(field_size)
         create_field_by_size(field_size)
+        game_online = True
+        
     except ValueError:
         print("Neplatný vstup pro velikost pole:", topic_data)
 
@@ -192,6 +196,10 @@ if wifiCfg.wlan_sta.isconnected():
 else:
     label0.set_text('Connection Failed')
 
+# Čekám, než hráč 1 založí hru
+while (game_online == False):
+    wait(3)
+    
 while check_game_state(state_matrix, field_size) == True:
     wait(3)
     
