@@ -177,7 +177,7 @@ def player_two_played(topic_data):
 
 # Připojení k Wi-Fi
 label0 = M5Label('Not Connected', x=110, y=120, color=0x000, font=FONT_MONT_14, parent=None)
-wifiCfg.doConnect('BRITA', 'Kachal_1134')
+wifiCfg.doConnect('SSID', 'Password')
 
 if not wifiCfg.wlan_sta.isconnected():
     for _ in range(5):  # Zkus připojit 5x
